@@ -7,6 +7,11 @@ export HYDRA_FULL_ERROR=1
 export VLLM_USE_V1=1
 ulimit -n 65535
 
+# SwanLab 自托管配置（按需修改）
+export SWANLAB_API_HOST="${SWANLAB_API_HOST:-http://localhost:8080}"
+export SWANLAB_API_KEY="${SWANLAB_API_KEY:-}"
+export SWANLAB_MODE="${SWANLAB_MODE:-cloud}"
+
 PROJECT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 CONFIG_PATH="$PROJECT_DIR/examples/sglang_multiturn/config"
 
@@ -45,7 +50,7 @@ python3 -m verl.trainer.main_ppo \
     actor_rollout_ref.ref.fsdp_config.param_offload=True \
     algorithm.use_kl_in_reward=False \
     trainer.critic_warmup=0 \
-    trainer.logger='["console"]' \
+    trainer.logger='["console","swanlab"]' \
     trainer.project_name='gsm8k_agent_rl' \
     trainer.experiment_name='qwen0.5b-gsm8k-multiturn-tool-vllm-1gpu-16gb' \
     trainer.n_gpus_per_node=1 \
