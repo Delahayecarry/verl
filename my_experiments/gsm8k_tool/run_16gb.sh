@@ -10,7 +10,7 @@ ulimit -n 65535
 PROJECT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 CONFIG_PATH="$PROJECT_DIR/examples/sglang_multiturn/config"
 
-python3 -m verl.trainer.main_ppo \
+uv run python -m verl.trainer.main_ppo \
     --config-path="$CONFIG_PATH" \
     --config-name='gsm8k_multiturn_grpo' \
     algorithm.adv_estimator=grpo \
